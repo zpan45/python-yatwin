@@ -972,7 +972,7 @@ class NetworkingThread(_StopableDaemonThread):
     def _sendMsg(self, msg):
         data = createMessage(msg.getEnv())
         if msg.msgType() == Message.UNICAST:
-            self._uniOutSocket.sendto(data, (msg.getAddr(), msg.getPort()))
+            self._uniOutSocket.sendto(data.encode(), (msg.getAddr(), msg.getPort()))
         else:
             for sock in self._multiOutUniInSockets.values():
                 sock.sendto(data.encode(), (msg.getAddr(), msg.getPort()))
